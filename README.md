@@ -1,2 +1,2 @@
 # vp
-Tarkvaraarenduse rühma veen
+Tarkvaraarenduse rühma veenb
