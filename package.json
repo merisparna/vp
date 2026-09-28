@@ -1,0 +1,31 @@
+{
+  "name": "vp",
+  "version": "1.0.0",
+  "description": "Veebiprogrammeerimise tundides tehtud veeb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://merisparna@github.com/merisparna/vp.git"
+  },
+  "keywords": [
+    "Node.Js",
+    "veeb",
+    "Tallinna",
+    "Ülikool",
+    "DTI",
+    "üliõpilane",
+    "koolitöö"
+  ],
+  "author": "Meris Pärna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merisparna/vp/issues"
+  },
+  "homepage": "https://github.com/merisparna/vp#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
