@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 
 //määran ühe päris kataloogi virtuaalses serveris kättesaadavaks
 app.use(express.static('public'));
-
+app.use(bodyparser.urlencoded({extended: false}));
 //marsruudid
 app.get('/', async (req, res)=>{
     //res.send('Express.js läks käima ja serveerib meile veebi.')
@@ -35,19 +35,34 @@ app.get('/vanasona', async (req, res)=> {
     }
 })
 
-app.get('/regvisit', (reg, res)=> {
+app.get('/regvisit', (req, res)=> {
     res.render('regvisit');
 })
 
-app.post('/regvisit', async (reg, res) =>{
+app.post('/regvisit', async (req, res) =>{
     try {
-        await fs.open(regTextRef, 'a');
-        await fs.appendFile(regTextRef, reg.body.nameInput + ';')
+        const visitDate = dateET.fullDate();
+        const visitTime = dateET.fullTime();
+        await fs.appendFile(regTextRef, req.body.nameInput + ',' + visitDate + ',' + visitTime + ';');
         res.render('regvisit');
     }
     catch (err) {
         console.log(err);
         res.render('regvisit');
+    }
+});
+
+app.get('/lastvisit', async (req, res)=> {
+    try {
+        const data = await fs.readFile(regTextRef, 'utf8');
+        const visits = data.split(';');
+        const lastVisit = visits[visits.length - 2];
+        const visitParts = lastVisit.split(',');
+        const info = 'Viimati registreeris külastuse ' + visitParts[1] + ', kell ' + visitParts[2] + ' Järgmine isik: ' + visitParts[0];
+        res.render('lastvisit', {info: info});
+    }
+    catch (err) {
+        res.render('lastvisit', {info: 'Ühtegi külastust pole veel registreeritud!'});
     }
 });
 
